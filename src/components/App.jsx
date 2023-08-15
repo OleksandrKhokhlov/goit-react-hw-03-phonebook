@@ -19,7 +19,9 @@ export class App extends Component {
 }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
+    const { contacts: prevContacts } = prevState;
+    const { contacts: nextContacts } = this.state;
+    if (prevContacts !== nextContacts) {
       localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
     }
   }
