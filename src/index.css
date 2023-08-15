@@ -21,7 +21,6 @@ input:hover, input:focus {
   border: 3px solid rgba(12,103,240,0.6);
 }
 button {
-  margin: 0 auto;
   border-radius: 3px;
   cursor: pointer;
 }

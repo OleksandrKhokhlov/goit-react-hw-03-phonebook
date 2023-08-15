@@ -9,3 +9,8 @@ export const EntryField = styled.label`
   align-content:space-around;
   text-align: left;
 `;
+
+export const AddButton = styled.button`
+display:block;
+margin: 0 auto;
+`

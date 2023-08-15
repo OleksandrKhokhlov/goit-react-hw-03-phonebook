@@ -1,10 +1,12 @@
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { EntryField } from './ContactForm.styled ';
+import { AddButton, EntryField } from './ContactForm.styled ';
 
 const nameRegExp =
   /^[a-zA-Zа-яА-Я]+(([' \\-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+const phoneRegExp =
+  /\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}/;
 const schema = Yup.object().shape({
   name: Yup.string()
     .required('Required')
@@ -12,10 +14,10 @@ const schema = Yup.object().shape({
       nameRegExp,
       ` Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan`
     ),
-  number: Yup.number()
-    .positive('Must be > 0')
-    .required('Required')
-  
+  number: Yup.string().matches(
+    phoneRegExp,
+    'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+  ),
 });
 
 export const ContactForm = ({ onAdd, contacts }) => {
@@ -45,14 +47,10 @@ export const ContactForm = ({ onAdd, contacts }) => {
         <ErrorMessage name="name" />
         <EntryField htmlFor="number">
           Number
-          <Field
-            id="number"
-            type="tel"
-            name="number"
-          />
+          <Field id="number" type="tel" name="number" />
         </EntryField>
         <ErrorMessage name="number" />
-        <button type="submit">Add contact</button>
+        <AddButton type="submit">Add contact</AddButton>
       </Form>
     </Formik>
   );
